@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34723.18
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Basket", "Basket", "{6E9EA66C-7479-40FC-A89C-F3146F90EE76}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Catalog", "Catalog", "{C1F6ECE0-2B77-4AA9-8C93-004C3B212FB5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EventBusHandler", "EventBusHandler", "{1E3B4F3A-0AF4-415D-9EC7-DEE81161982E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gateway", "Gateway", "{58FDDF06-C791-437C-975B-081535A6BF08}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Identity", "Identity", "{8BB73D6E-0584-4BEE-9596-D7967B6C04A1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ordering", "Ordering", "{97AC16B3-7D77-4462-B2EC-62A62F7A658E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatalogApi", "CatalogApi\CatalogApi.csproj", "{CC293A67-0267-4D3A-A7CE-B1FB986218C0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CC293A67-0267-4D3A-A7CE-B1FB986218C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC293A67-0267-4D3A-A7CE-B1FB986218C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC293A67-0267-4D3A-A7CE-B1FB986218C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC293A67-0267-4D3A-A7CE-B1FB986218C0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{CC293A67-0267-4D3A-A7CE-B1FB986218C0} = {C1F6ECE0-2B77-4AA9-8C93-004C3B212FB5}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D58DF0BC-E36C-4B2C-83EF-AA45E3B7DEAF}
+	EndGlobalSection
+EndGlobal
