@@ -20,7 +20,8 @@ namespace CatalogApi.Data
                 );
 
             Products = database.GetCollection<Product>("DatabaseSettings:CollectionName");
-        }
+
+            }
 
         public IMongoCollection<Product> Products { get; }
     
