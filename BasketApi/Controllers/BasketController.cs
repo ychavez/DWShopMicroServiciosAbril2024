@@ -8,7 +8,8 @@ namespace BasketApi.Controllers
 {
     [ApiController]
     [Route("api/v1/[controller]")]
-    public class BasketController(IBasketRepository basketRepository, IPublishEndpoint publishEndpoint) : ControllerBase
+    public class BasketController(IBasketRepository basketRepository, 
+        IPublishEndpoint publishEndpoint) : ControllerBase
     {
         [HttpGet("{userName}")]
         public async Task<ActionResult<ShoppingCart>> GetBasket(string userName)

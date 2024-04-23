@@ -1,8 +1,10 @@
 
+using EventBus.Messages.Common;
+using MassTransit;
 using Microsoft.EntityFrameworkCore;
+using Ordering.Api.Events;
 using Ordering.Application.Contracts;
 using Ordering.Application.Extensions;
-using Ordering.Domain.Entities;
 using Ordering.Infrastructure.Persistence;
 using Ordering.Infrastructure.Repositories;
 
@@ -10,16 +12,31 @@ namespace Ordering.Api
 {
     public class Program
     {
+
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            builder.Services.AddDbContext<OrderContext>(options => {
-                options.UseSqlServer(builder.Configuration.GetConnectionString("OrderingConnection"));
-            } );
+            builder.Services.AddMassTransit(x =>
+            {
+                x.AddConsumer<CheckoutEventConsumer>();
 
-            builder.Services.AddScoped(typeof(IGenericRepository<>),typeof(GenericRepository<>));
+                x.UsingRabbitMq((ctx, cfg) =>
+                {
+                    cfg.Host(builder.Configuration["EventBusSettings:HostAddress"]);
+
+                    cfg.ReceiveEndpoint(EventBusConstants.BasketCheckoutQueue,
+                        x => x.ConfigureConsumer<CheckoutEventConsumer>(ctx));
+                });
+            });
+
+            builder.Services.AddDbContext<OrderContext>(options =>
+            {
+                options.UseSqlServer(builder.Configuration.GetConnectionString("OrderingConnection"));
+            });
+
+            builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
             builder.Services.RegisterApplication();
             builder.Services.AddControllers();
