@@ -1,5 +1,6 @@
 
 using BasketApi.Repositories;
+using MassTransit;
 
 namespace BasketApi
 {
@@ -12,6 +13,9 @@ namespace BasketApi
             // Add services to the container.
             builder.Services.AddStackExchangeRedisCache(x =>
             x.Configuration = builder.Configuration.GetValue<string>("CacheSettings:ConnectionString"));
+
+            builder.Services.AddMassTransit(x => x.UsingRabbitMq((ctx, cfg) =>
+            cfg.Host(builder.Configuration["EventBussSettings:HostAddress"])));
 
             builder.Services.AddScoped<IBasketRepository, BasketRepository>();
 

@@ -33,19 +33,21 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{2A
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{5E0D1E62-A088-40B0-A82E-63DAA65CF26B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ordering.Domain", "Ordering.Domain\Ordering.Domain.csproj", "{7197059C-F759-45A1-AE31-E5D42FB30E67}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ordering.Domain", "Ordering.Domain\Ordering.Domain.csproj", "{7197059C-F759-45A1-AE31-E5D42FB30E67}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ordering.Infrastructure", "Ordering.Infrastructure\Ordering.Infrastructure.csproj", "{26F062AC-071C-46E3-9700-680F02096C21}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ordering.Infrastructure", "Ordering.Infrastructure\Ordering.Infrastructure.csproj", "{26F062AC-071C-46E3-9700-680F02096C21}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ordering.Application", "Ordering.Application\Ordering.Application.csproj", "{8E187AA6-6E01-4F20-9362-B89EC87B4AF4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ordering.Application", "Ordering.Application\Ordering.Application.csproj", "{8E187AA6-6E01-4F20-9362-B89EC87B4AF4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ordering.Api", "Ordering.Api\Ordering.Api.csproj", "{DCA0BFEE-4DE9-416B-8B81-81CA0DE94EBA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ordering.Api", "Ordering.Api\Ordering.Api.csproj", "{DCA0BFEE-4DE9-416B-8B81-81CA0DE94EBA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ordering.Test", "Ordering.Test\Ordering.Test.csproj", "{CAB22F5A-956B-4979-A75C-0F5996C67CCB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ordering.Test", "Ordering.Test\Ordering.Test.csproj", "{CAB22F5A-956B-4979-A75C-0F5996C67CCB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenericsFunc", "GenericsFunc\GenericsFunc.csproj", "{A525D8F4-C818-4662-8DE6-228CF0BC7D5F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GenericsFunc", "GenericsFunc\GenericsFunc.csproj", "{A525D8F4-C818-4662-8DE6-228CF0BC7D5F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExtensionMethods", "Extensions\ExtensionMethods\ExtensionMethods.csproj", "{7C392EE4-763F-4F33-A2DA-3A4BA8FE3DE0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExtensionMethods", "Extensions\ExtensionMethods\ExtensionMethods.csproj", "{7C392EE4-763F-4F33-A2DA-3A4BA8FE3DE0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventBus.Messages", "EventBus.Messages\EventBus.Messages.csproj", "{2FD763E1-AAE1-4DFD-A7D1-4CA78E4D301D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -126,6 +128,12 @@ Global
 		{7C392EE4-763F-4F33-A2DA-3A4BA8FE3DE0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7C392EE4-763F-4F33-A2DA-3A4BA8FE3DE0}.Tester|Any CPU.ActiveCfg = Debug|Any CPU
 		{7C392EE4-763F-4F33-A2DA-3A4BA8FE3DE0}.Tester|Any CPU.Build.0 = Debug|Any CPU
+		{2FD763E1-AAE1-4DFD-A7D1-4CA78E4D301D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2FD763E1-AAE1-4DFD-A7D1-4CA78E4D301D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2FD763E1-AAE1-4DFD-A7D1-4CA78E4D301D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2FD763E1-AAE1-4DFD-A7D1-4CA78E4D301D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2FD763E1-AAE1-4DFD-A7D1-4CA78E4D301D}.Tester|Any CPU.ActiveCfg = Debug|Any CPU
+		{2FD763E1-AAE1-4DFD-A7D1-4CA78E4D301D}.Tester|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -145,6 +153,7 @@ Global
 		{CAB22F5A-956B-4979-A75C-0F5996C67CCB} = {5E0D1E62-A088-40B0-A82E-63DAA65CF26B}
 		{A525D8F4-C818-4662-8DE6-228CF0BC7D5F} = {E6A8A072-8ADF-4F51-9F4B-524111A60DEE}
 		{7C392EE4-763F-4F33-A2DA-3A4BA8FE3DE0} = {E6A8A072-8ADF-4F51-9F4B-524111A60DEE}
+		{2FD763E1-AAE1-4DFD-A7D1-4CA78E4D301D} = {1E3B4F3A-0AF4-415D-9EC7-DEE81161982E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D58DF0BC-E36C-4B2C-83EF-AA45E3B7DEAF}
