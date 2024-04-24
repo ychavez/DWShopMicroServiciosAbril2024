@@ -1,6 +1,7 @@
 ﻿using BasketApi.Entities;
 using BasketApi.Repositories;
 using EventBus.Messages.Events;
+using Inventory.gRPC.Protos;
 using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,7 +10,7 @@ namespace BasketApi.Controllers
     [ApiController]
     [Route("api/v1/[controller]")]
     public class BasketController(IBasketRepository basketRepository, 
-        IPublishEndpoint publishEndpoint) : ControllerBase
+        IPublishEndpoint publishEndpoint, Existence.ExistenceClient existenceService) : ControllerBase
     {
         [HttpGet("{userName}")]
         public async Task<ActionResult<ShoppingCart>> GetBasket(string userName)
@@ -47,6 +48,14 @@ namespace BasketApi.Controllers
         [HttpPost]
         public async Task<ActionResult<ShoppingCart>> UpdateBasket([FromBody] ShoppingCart shoppingCart)
         {
+
+            foreach (var item in shoppingCart.CartItems)
+            {
+                var existence = await existenceService.checkExistenceAsync(new() { Id = item.ProductId });
+
+                item.Quantity = item.Quantity > existence.ProductQTY ? existence.ProductQTY: item.Quantity;
+            }
+
             await basketRepository.UpdateBasket(shoppingCart);
             return Ok(shoppingCart);
         }

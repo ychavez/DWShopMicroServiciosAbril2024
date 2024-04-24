@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Grpc.AspNetCore" Version="2.49.0" />
     <PackageReference Include="MassTransit" Version="8.2.1" />
     <PackageReference Include="MassTransit.Extensions.DependencyInjection" Version="7.3.1" />
     <PackageReference Include="MassTransit.RabbitMQ" Version="8.2.1" />
@@ -19,6 +20,12 @@
 
   <ItemGroup>
     <ProjectReference Include="..\EventBus.Messages\EventBus.Messages.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Protobuf Include="..\Inventory.gRPC\Protos\existence.proto" GrpcServices="Client">
+      <Link>Protos\existence.proto</Link>
+    </Protobuf>
   </ItemGroup>
 
 </Project>

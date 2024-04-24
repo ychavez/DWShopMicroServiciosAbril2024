@@ -1,5 +1,6 @@
 
 using BasketApi.Repositories;
+using Inventory.gRPC.Protos;
 using MassTransit;
 
 namespace BasketApi
@@ -11,6 +12,9 @@ namespace BasketApi
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+            builder.Services.AddGrpcClient<Existence.ExistenceClient>
+                (x => x.Address = new Uri(builder.Configuration["GrpcSettings:HostAddress"]!));
+
             builder.Services.AddStackExchangeRedisCache(x =>
             x.Configuration = builder.Configuration.GetValue<string>("CacheSettings:ConnectionString"));
 
