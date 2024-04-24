@@ -18,15 +18,18 @@ services:
      - "27017:27017"
     volumes:
       - "mongo_data:/data/db"
+
   basketapi:
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_HTTP_PORTS=80
-      -  "CacheSettings__ConnectionString=basketdb:6379" 
-    ports:
-      - "8001:80"
-    depends_on:
-     - basketdb
+     environment:
+       - ASPNETCORE_ENVIRONMENT=Development
+       - ASPNETCORE_HTTP_PORTS=80
+       -  "CacheSettings__ConnectionString=basketdb:6379" 
+       - EventBusSettings__HostAddress=amqp://guest:guest@rabbitmq:5672
+       - GrpcSettings__HostAddress=http://inventory.grpc:8003
+     ports:
+       - "8001:80"
+     depends_on:
+      - basketdb
 
   orderdb:
    container_name: orderdb
@@ -49,3 +52,29 @@ services:
     - 15672:15672 
 
 
+
+  ordering.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=80
+      - EventBusSettings__HostAddress=amqp://guest:guest@rabbitmq:5672
+      - ConnectionStrings__OrderingConnection=Server=orderdb,1433;Database=Order;Encrypt=false;User id=sa;Password=Passw0rd23
+    ports:
+      - "8002:80"
+    container_name: ordering.api
+    depends_on:
+      - rabbitmq
+      - orderdb
+
+  inventory.grpc:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8003
+      - ASPNETCORE_HTTPS_PORTS=8081
+    ports:
+      - "8003"
+      - "8081"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+    container_name: inventory.grpc

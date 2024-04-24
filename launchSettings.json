@@ -5,7 +5,9 @@
       "commandVersion": "1.0",
       "serviceActions": {
         "catalogapi": "StartDebugging",
-        "basketapi": "StartDebugging"
+        "basketapi": "StartDebugging",
+        "ordering.api": "StartDebugging",
+        "inventory.grpc": "StartDebugging"
       }
     }
   }
