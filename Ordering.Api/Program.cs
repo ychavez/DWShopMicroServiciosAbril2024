@@ -1,40 +1,71 @@
 
 using EventBus.Messages.Common;
 using MassTransit;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Ordering.Api.Events;
 using Ordering.Application.Contracts;
 using Ordering.Application.Extensions;
 using Ordering.Infrastructure.Persistence;
 using Ordering.Infrastructure.Repositories;
+using System.Text;
 
 namespace Ordering.Api
 {
     public class Program
     {
-
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            builder.Services.AddMassTransit(x =>
-            {
-                x.AddConsumer<CheckoutEventConsumer>();
+            builder.Services
+                .AddAuthentication(
+                    x =>
+                    {
+                        x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                        x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                    })
+                .AddJwtBearer(
+                    x =>
+                    {
+                        x.RequireHttpsMetadata = false;
+                        x.SaveToken = true;
+                        x.TokenValidationParameters = new()
+                        {
+                            ValidateIssuerSigningKey = true,
+                            IssuerSigningKey = new SymmetricSecurityKey(
+                                Encoding.ASCII.GetBytes(builder.Configuration.GetValue<string>("Identity:Key")!)),
+                            ValidateIssuer = false,
+                            ValidateAudience = false,
+                        };
+                    });
 
-                x.UsingRabbitMq((ctx, cfg) =>
-                {
-                    cfg.Host(builder.Configuration["EventBusSettings:HostAddress"]);
 
-                    cfg.ReceiveEndpoint(EventBusConstants.BasketCheckoutQueue,
-                        x => x.ConfigureConsumer<CheckoutEventConsumer>(ctx));
-                });
-            });
+            builder.Services
+                .AddMassTransit(
+                    x =>
+                    {
+                        x.AddConsumer<CheckoutEventConsumer>();
 
-            builder.Services.AddDbContext<OrderContext>(options =>
-            {
-                options.UseSqlServer(builder.Configuration.GetConnectionString("OrderingConnection"));
-            });
+                        x.UsingRabbitMq(
+                            (ctx, cfg) =>
+                            {
+                                cfg.Host(builder.Configuration["EventBusSettings:HostAddress"]);
+
+                                cfg.ReceiveEndpoint(
+                                    EventBusConstants.BasketCheckoutQueue,
+                                    x => x.ConfigureConsumer<CheckoutEventConsumer>(ctx));
+                            });
+                    });
+
+            builder.Services
+                .AddDbContext<OrderContext>(
+                    options =>
+                    {
+                        options.UseSqlServer(builder.Configuration.GetConnectionString("OrderingConnection"));
+                    });
 
             builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
@@ -52,11 +83,11 @@ namespace Ordering.Api
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
-
             app.MapControllers();
+
 
             app.Run();
         }

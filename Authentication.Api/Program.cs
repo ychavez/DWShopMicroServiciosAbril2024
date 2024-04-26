@@ -22,7 +22,7 @@ namespace Authentication.Api
             })
                 .AddRoles<IdentityRole>()
                 .AddSignInManager<SignInManager<DWUser>>()
-                .AddRoleValidator<IdentityRole>()
+                .AddRoleValidator<RoleValidator<IdentityRole>>()
                 .AddEntityFrameworkStores<AccountDbContext>();
 
             builder.Services.AddDbContext<AccountDbContext>(options =>
